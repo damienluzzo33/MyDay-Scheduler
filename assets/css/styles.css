@@ -9,7 +9,6 @@ textarea {
     border: none;
     resize: none;
     color: #000000;
-    border-left: 1px solid black;
     padding: 10px;
 }
 
@@ -33,7 +32,7 @@ border-radius: 15px;
 .row {
 white-space: pre-wrap;
 height: 80px;
-border-top: 1px solid white;
+/* border-top: 1px solid white; */
 }
 
 .hour {
@@ -69,3 +68,4 @@ color: white;
 font-size: 20px;
 transition: all 0.3s ease-in-out;
 }
+
