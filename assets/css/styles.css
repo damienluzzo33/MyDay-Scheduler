@@ -47,12 +47,12 @@ color: white;
 }
 
 .present {
-background-color: #ff6961;
+background-color: #ff6600af;
 color: white;
 }
 
 .future {
-background-color: #77dd77;
+background-color: rgba(37, 223, 214, 0.877);
 color: white;
 }
 

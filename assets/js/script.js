@@ -2,36 +2,35 @@
 var calendar = $('.container');
 // grab current date p tag and stor in variable
 var currentDate = $('#currentDay');
+// grab the reset button
+var resetButton = $('#reset-btn');
 // crate global variables
 var timeBox, hourOfDay, scheduleInput, saveButton, hourSpan, saveIcon;
 
-// use moment.js to generate the current date
-function getCurrentDate() {
+// define a function that calls checkTime and getCurrentTime functions
+function fetchDateAndTime() {
+    // use moment.js to generate the current date
     var date = moment().format('MMMM Do YYYY, h:mm:ss a');
+    // set text of currentDate element to the date
     currentDate.text(date);
-}
-
-setInterval(getCurrentDate, 1000);
-
-// use moment.js to generate the current time
-function checkTime(){
+    // use moment.js to generate the current time
     var currentTime = Number(moment().format('HH'));
-    console.log(currentTime)
+    // conditionally apply colors
     for (var i = 0; i < calendar.children().length; i++) {
         var timeBoxElements = calendar.children()[i];
         var hour = Number(timeBoxElements.children[0].children[0].id);
         if (currentTime === hour) {
-            timeBoxElements.setAttribute("class", "input-group input-group-lg row m-0 pr-0 col d-flex justify-content-center present")
+            $(timeBoxElements).attr("class", "input-group input-group-lg row m-0 pr-0 col d-flex justify-content-center present")
         } else if (currentTime > hour) {
-            timeBoxElements.setAttribute("class", "input-group input-group-lg row m-0 pr-0 col d-flex justify-content-center past")
+            $(timeBoxElements).attr("class", "input-group input-group-lg row m-0 pr-0 col d-flex justify-content-center past")
         } else {
-            timeBoxElements.setAttribute("class", "input-group input-group-lg row m-0 pr-0 col d-flex justify-content-center future")
+            $(timeBoxElements).attr("class", "input-group input-group-lg row m-0 pr-0 col d-flex justify-content-center future")
         }
     }
 }
-
-setInterval(checkTime, 1000);
-
+// use setInterval to fetch the current data and time every second
+fetchDateAndTime();
+setInterval(fetchDateAndTime, 1000);
 // iterate 24 times to create rows of data with 3 total columns
 for (var i = 0; i < 24; i++) {
 	// create div for the time box rows
@@ -40,10 +39,10 @@ for (var i = 0; i < 24; i++) {
 	hourDiv = $('<div>', { class: 'col-2 row input-group-prepend text-center p-0' });
 	hourSpan = $('<span>', { class: 'col input-group-text d-flex justify-content-center', style: 'font-size: 1rem', id: `${i + 1}` });
 	// create input text box
-	scheduleInput = $('<textarea>', { class: 'col-8 border-top border-bottom border-left-0', type: 'text', 'aria-label': 'text-box for calendar entry', 'aria-describedby': `schedule-entry-${i + 1}` });
+	scheduleInput = $('<textarea>', { class: 'userInput col-8 border-top border-bottom border-left-0', type: 'text', 'aria-label': 'text-box for calendar entry', 'aria-describedby': `schedule-entry-${i + 1}`, id: `${i + 1}` });
 	// create div to hold save button and create button element
 	saveDiv = $('<div>', { class: 'input-group-append col-2 row p-0 m-0' });
-	saveButton = $('<button>', { class: 'btn btn-outline-secondary col saveBtn', type: 'button', id: `schedule-entry-${i + 1}` });
+	saveButton = $('<button>', { class: 'btn btn-outline-secondary col saveBtn', type: 'button', 'aria-label': "save button", id: `schedule-entry-${i + 1}` });
 	// create save button icon element and add font awesome class for icon
 	saveIcon = $('<i>', { class: 'fas fa-save' });
 	// append timeBox to the calendar
@@ -51,7 +50,7 @@ for (var i = 0; i < 24; i++) {
 	// append hour span to div and append div to timeBox
 	timeBox.append(hourDiv);
 	hourDiv.append(hourSpan);
-	// TODO - use the index to dynamically the hours in military time
+    // use conditional logic to set the correct time with AM or PM
 	if (i - 11 <= 0) {
 		hourSpan.text(`${i + 1} AM`);
 	} else if (i === 23) {
@@ -65,22 +64,46 @@ for (var i = 0; i < 24; i++) {
 	timeBox.append(saveDiv);
 	saveDiv.append(saveButton);
 	saveButton.append(saveIcon);
+    // add event listener on each button and input
+    saveButton.on('click', buttonClickHandler);
+
 }
 
-var inputClickHandler = function(event) {
-    console.log(event.target);
+// create function for when the button is clicked
+function buttonClickHandler() {
+    console.log($(this).parent().siblings().eq(1))
+    // create variable to store the info input from the textarea
+    var textAreaText = $(this).parent().siblings().eq(1).val();
+    var inputIdKey = $(this).parent().siblings().eq(1).attr('id');
+    console.log(inputIdKey);
+    // store textAreaText value in local storage with unique keys
+    localStorage.setItem(inputIdKey, JSON.stringify(textAreaText));
 };
 
-function buttonClickHandler() {
-    console.log("saved!")
+// create a function that can be used to extract memory when page is reloaded or revisited
+function extractAndDisplay() {
+    // loop through the time boxes
+    for (var i = 0; i < 24; i++){
+        var savedTextInput = JSON.parse(localStorage.getItem(`${i+1}`));
+        console.log(savedTextInput);
+        $('.userInput').eq(`${i}`).val(savedTextInput);
+    }
 }
 
-// add event listener on each button
-saveButton.on('click', buttonClickHandler);
+// call the function to extract and display previously saved 
+extractAndDisplay();
 
+// create function that will reset the values of all of the text boxes
+function resetValues() {
+    localStorage.clear();
+    for (var i = 0; i < 24; i++){
+        $('.userInput').eq(`${i}`).val('');
+    }
+    
+}
 
-
-// class="text-muted"
+// add event listener for reset button
+$(resetButton).on("click", resetValues);
 
 //// when planner is opened, the current day is displayed at the top of the calendar
 
