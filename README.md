@@ -18,7 +18,13 @@ The MyDay Scheduler allows you to plan your schedule for the current day, everyd
 
 ## Screenshot and Link To Project
 
+### Desktop
+![Desktop Screenshot](./assets/images/screenshot_1.png)
 
+### Mobile
+![Mobile Screenshot](./assets/images/screenshot_2.png)
+
+[Link to Project on GitHub Pages: ](https://damienluzzo33.github.io/MyDay-Scheduler/);
 
 ## Other
 
