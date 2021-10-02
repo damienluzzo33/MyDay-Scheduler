@@ -4,16 +4,21 @@ The MyDay Scheduler allows you to plan your schedule for the current day, everyd
 
 ## Features
 
-+ Let users add/update notes/todos/check-points to each hour of the current day
-+ Let users save their added/edited content to local storage
-+ When the time passes, hour by hour, the current hour will be updated
-+ Hours passed will be highlighted in gray
-+ The current hour will be highlighted in red
-+ Hours ahead will be highlighted in green
-+ Once hours have passed, you will not be able to update the text inside
++ Allows users add/update notes/todos/check-points to each hour of the current day
++ When saved, users will have their added/edited content stored in local storage
++ When the time passes, hour by hour, the current hour will be updated in real time
++ Hours that have passed will be highlighted in gray
++ The current hour will be highlighted in orange
++ The hours still ahead will be highlighted in blue
 + Once the day changes, the scheduler will reset so that the user can plan for the new day ahead
 
+## Future Features
+
++ Once hours have passed, you will not be able to update the text inside
+
 ## Screenshot and Link To Project
+
+
 
 ## Other
 
