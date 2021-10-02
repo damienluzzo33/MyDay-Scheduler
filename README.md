@@ -10,11 +10,11 @@ The MyDay Scheduler allows you to plan your schedule for the current day, everyd
 + Hours that have passed will be highlighted in gray
 + The current hour will be highlighted in orange
 + The hours still ahead will be highlighted in blue
-+ Once the day changes, the scheduler will reset so that the user can plan for the new day ahead
 
 ## Future Features
 
 + Once hours have passed, you will not be able to update the text inside
++ Once the day changes, the scheduler will reset so that the user can plan for the new day ahead
 
 ## Screenshot and Link To Project
 
