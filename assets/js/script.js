@@ -58,7 +58,8 @@ for (var i = 5; i < 24; i++) {
 	timeBox.append(hourDiv);
 	hourDiv.append(hourSpan);
     // use conditional logic to set the correct time with AM or PM
-	if (i - 11 <= 0) hourSpan.text(`${i + 1} AM`);
+	if (i - 11 < 0) hourSpan.text(`${i + 1} AM`);
+    else if (i - 11 === 0) hourSpan.text('12 PM')
 	else if (i === 23) hourSpan.text(`${i - 11} AM`);
 	else hourSpan.text(`${i - 11} PM`);
 	// append input to the timeBox
