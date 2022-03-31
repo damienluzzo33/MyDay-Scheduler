@@ -36,26 +36,25 @@ function fetchDateAndTime() {
     for (var i = 0; i < calendar.children().length; i++) {
         // get children of the calendar
         var timeBoxElements = calendar.children()[i];
+        var textAreaEl = timeBoxElements.children[1];
         // find the hour value associated with the time box
         var hour = Number(timeBoxElements.children[0].children[0].id);
         // if hour is the current hour
         if (currentTime === hour) {
             // set class to include present class
-            $(timeBoxElements).attr("class", "input-group input-group-lg row m-0 pr-0 col d-flex justify-content-center present")
+            $(textAreaEl).attr("class", "input-group input-group-lg row m-0 pr-0 col d-flex justify-content-center present")
             // if hour is a past hour
         } else if (currentTime > hour) {
             // set class to include past class
-            $(timeBoxElements).attr("class", "input-group input-group-lg row m-0 pr-0 col d-flex justify-content-center past")
+            $(textAreaEl).attr("class", "input-group input-group-lg row m-0 pr-0 col d-flex justify-content-center past")
             // if hour is a future hour
         } else {
             // set class to include future class
-            $(timeBoxElements).attr("class", "input-group input-group-lg row m-0 pr-0 col d-flex justify-content-center future")
+            $(textAreaEl).attr("class", "input-group input-group-lg row m-0 pr-0 col d-flex justify-content-center future")
         }
     }
 }
-// use setInterval to fetch the current data and time every second (and immediately on page load)
-fetchDateAndTime();
-setInterval(fetchDateAndTime, 1000);
+
 // iterate 24 times to create rows of data with 3 total columns
 for (var i = 0; i < 19; i++) {
 	// create div for the time box rows
@@ -111,5 +110,8 @@ function resetValues() {
 }
 // call the function to extract and display previously saved 
 extractAndDisplay();
+// use setInterval to fetch the current data and time every second (and immediately on page load)
+fetchDateAndTime();
+setInterval(fetchDateAndTime, 1000);
 // add event listener for reset button
 $(resetButton).on("click", resetValues);
